@@ -13,6 +13,14 @@ import {apiVersion, dataset, projectId} from './src/sanity/env'
 import {schema} from './src/sanity/schemaTypes'
 import {structure} from './src/sanity/structure'
 
+import  post from './src/sanity/schemaTypes/postType'
+import category from './src/sanity/schemaTypes/categoryType'
+import { authorType } from './src/sanity/schemaTypes/authorType'
+import { blockContentType } from './src/sanity/schemaTypes/blockContentType'
+
+export const schemaTypes = [post, category, authorType, blockContentType]
+
+
 export default defineConfig({
   basePath: '/studio',
   projectId,

@@ -1,65 +1,75 @@
-import {DocumentTextIcon} from '@sanity/icons'
-import {defineArrayMember, defineField, defineType} from 'sanity'
+// sanity/schemaTypes/postType.ts
+import { defineField, defineType } from 'sanity'
 
-export const postType = defineType({
+export default defineType({
   name: 'post',
-  title: 'Post',
+  title: '文章',
   type: 'document',
-  icon: DocumentTextIcon,
   fields: [
     defineField({
       name: 'title',
+      title: '標題',
       type: 'string',
     }),
     defineField({
       name: 'slug',
+      title: 'Slug',
       type: 'slug',
       options: {
         source: 'title',
+        maxLength: 96,
       },
     }),
     defineField({
-      name: 'author',
-      type: 'reference',
-      to: {type: 'author'},
+      name: 'excerpt',
+      title: '摘要',
+      type: 'text',
     }),
     defineField({
-      name: 'mainImage',
+      name: 'content',
+      title: '內容',
+      type: 'blockContent',
+    }),
+    defineField({
+      name: 'thumbnail',
+      title: '封面圖片',
       type: 'image',
       options: {
         hotspot: true,
       },
-      fields: [
-        defineField({
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
-        })
-      ]
     }),
     defineField({
-      name: 'categories',
+      name: 'category',
+      title: '分類',
+      type: 'reference',
+      to: [{ type: 'category' }],
+    }),
+    defineField({
+      name: 'tags',
+      title: '標籤',
       type: 'array',
-      of: [defineArrayMember({type: 'reference', to: {type: 'category'}})],
+      of: [{ type: 'string' }],
+    }),
+    defineField({
+      name: 'lang',
+      title: '語言',
+      type: 'string',
+      options: {
+        list: [
+          { title: '繁體中文', value: 'zh-Hant' },
+          { title: 'English', value: 'en' },
+        ],
+      },
+    }),
+    defineField({
+      name: 'isPremium',
+      title: '訂閱內容？',
+      type: 'boolean',
     }),
     defineField({
       name: 'publishedAt',
+      title: '發佈時間',
       type: 'datetime',
     }),
-    defineField({
-      name: 'body',
-      type: 'blockContent',
-    }),
   ],
-  preview: {
-    select: {
-      title: 'title',
-      author: 'author.name',
-      media: 'mainImage',
-    },
-    prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
-    },
-  },
 })

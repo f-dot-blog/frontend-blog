@@ -18,6 +18,14 @@ export const blockContentType = defineType({
   type: 'array',
   of: [
     defineArrayMember({
+      type: 'code',
+      title: 'Code Block',
+      options: {
+        language: 'ts',
+        theme: 'github', // or 'monokai'
+      },
+    }),    
+    defineArrayMember({
       type: 'block',
       // Styles let you define what blocks can be marked up as. The default
       // set corresponds with HTML tags, but you can set any title or value

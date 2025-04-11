@@ -1,6 +1,7 @@
-import {defineField, defineType} from 'sanity'
+// sanity/schemaTypes/categoryType.ts
+import { defineField, defineType } from 'sanity'
 
-export default defineType({
+export const categoryType = defineType({
   name: 'category',
   title: '分類',
   type: 'document',
@@ -12,7 +13,7 @@ export default defineType({
     }),
     defineField({
       name: 'description',
-      title: '說明',
+      title: '描述',
       type: 'text',
     }),
   ],

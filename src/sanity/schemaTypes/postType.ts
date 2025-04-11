@@ -1,7 +1,7 @@
 // sanity/schemaTypes/postType.ts
 import { defineField, defineType } from 'sanity'
 
-export default defineType({
+export const postType = defineType({
   name: 'post',
   title: '文章',
   type: 'document',
@@ -10,33 +10,28 @@ export default defineType({
       name: 'title',
       title: '標題',
       type: 'string',
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'slug',
-      title: 'Slug',
+      title: 'Slug（網址）',
       type: 'slug',
       options: {
         source: 'title',
         maxLength: 96,
       },
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'excerpt',
-      title: '摘要',
+      title: '文章摘要',
       type: 'text',
     }),
     defineField({
-      name: 'content',
-      title: '內容',
-      type: 'blockContent',
-    }),
-    defineField({
-      name: 'thumbnail',
+      name: 'coverImage',
       title: '封面圖片',
       type: 'image',
-      options: {
-        hotspot: true,
-      },
+      options: { hotspot: true },
     }),
     defineField({
       name: 'category',
@@ -63,13 +58,27 @@ export default defineType({
     }),
     defineField({
       name: 'isPremium',
-      title: '訂閱內容？',
+      title: '付費內容？',
       type: 'boolean',
     }),
     defineField({
       name: 'publishedAt',
       title: '發佈時間',
       type: 'datetime',
+    }),
+    defineField({
+      name: 'content',
+      title: '文章內容',
+      type: 'blockContent',
+    }),
+    defineField({
+      name: 'seo',
+      title: 'SEO 設定',
+      type: 'object',
+      fields: [
+        defineField({ name: 'title', title: 'SEO 標題', type: 'string' }),
+        defineField({ name: 'description', title: 'SEO 描述', type: 'text' }),
+      ],
     }),
   ],
 })

@@ -13,12 +13,14 @@ import {apiVersion, dataset, projectId} from './src/sanity/env'
 import {schema} from './src/sanity/schemaTypes'
 import {structure} from './src/sanity/structure'
 
-import  post from './src/sanity/schemaTypes/postType'
-import category from './src/sanity/schemaTypes/categoryType'
+import  { postType } from './src/sanity/schemaTypes/postType'
+import  { categoryType } from './src/sanity/schemaTypes/categoryType'
 import { authorType } from './src/sanity/schemaTypes/authorType'
 import { blockContentType } from './src/sanity/schemaTypes/blockContentType'
 
-export const schemaTypes = [post, category, authorType, blockContentType]
+import { codeInput } from '@sanity/code-input'
+
+export const schemaTypes = [postType, categoryType, authorType, blockContentType]
 
 
 export default defineConfig({
@@ -32,5 +34,6 @@ export default defineConfig({
     // Vision is for querying with GROQ from inside the Studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({defaultApiVersion: apiVersion}),
+    codeInput(),
   ],
 })

@@ -7,10 +7,11 @@ import Image from 'next/image'
 import { urlForImage } from '@/sanity/lib/image'
 
 type CodeProps = {
-    value: string
-    language?: string
+    value: {
+      code: string
+      language?: string
+    }
   }
-
 interface PortableContentProps {
   value: any
 }
@@ -18,10 +19,10 @@ interface PortableContentProps {
 export default function PortableContent({ value }: PortableContentProps) {
   const components: Partial<PortableTextReactComponents> = {
     types: {
-      code: ({ value, language }: CodeProps ) => {
+      code: ({ value }: CodeProps ) => {
 
-            return <SyntaxHighlighter language={language} style={github }>
-                {value}
+            return <SyntaxHighlighter language={value.language} style={github }>
+                {value.code}
             </SyntaxHighlighter>;
       },
       image: ({ value }) => {

@@ -1,17 +1,16 @@
-// src/components/PortableContent.tsx
-
 import { PortableText, PortableTextReactComponents } from '@portabletext/react'
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { github } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import * as prismThemes from 'react-syntax-highlighter/dist/esm/styles/prism'
 import Image from 'next/image'
 import { urlForImage } from '@/sanity/lib/image'
 
 type CodeProps = {
-    value: {
-      code: string
-      language?: string
-    }
+  value: {
+    code: string
+    language?: string
   }
+}
+
 interface PortableContentProps {
   value: any
 }
@@ -19,12 +18,26 @@ interface PortableContentProps {
 export default function PortableContent({ value }: PortableContentProps) {
   const components: Partial<PortableTextReactComponents> = {
     types: {
-      code: ({ value }: CodeProps ) => {
-
-            return <SyntaxHighlighter language={value.language} style={github }>
-                {value.code}
-            </SyntaxHighlighter>;
+      code: ({ value }: CodeProps) => {
+        return (
+          <div className="my-6 rounded-lg overflow-auto bg-gray-100 dark:bg-[#1e1e1e] p-4 text-sm">
+            <SyntaxHighlighter
+              language={value.language || 'tsx'}
+              style={prismThemes.gruvboxLight}
+              customStyle={{
+                background: 'transparent',
+                fontSize: '0.9rem',
+                margin: 0,
+              }}
+              wrapLines={true}
+              showLineNumbers={true}
+            >
+              {value.code}
+            </SyntaxHighlighter>
+          </div>
+        )
       },
+
       image: ({ value }) => {
         if (!value?.asset?._ref) return null
         return (

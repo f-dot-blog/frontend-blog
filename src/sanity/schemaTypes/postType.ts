@@ -23,6 +23,15 @@ export const postType = defineType({
       validation: Rule => Rule.required(),
     }),
     defineField({
+      name: 'mainImage',
+      title: '封面圖',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    }
+    ),
+    defineField({
       name: 'excerpt',
       title: '文章摘要',
       type: 'text',

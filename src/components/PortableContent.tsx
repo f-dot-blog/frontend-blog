@@ -20,15 +20,11 @@ export default function PortableContent({ value }: PortableContentProps) {
     types: {
       code: ({ value }: CodeProps) => {
         return (
-          <div className="my-6 rounded-lg overflow-auto bg-gray-100 dark:bg-[#1e1e1e] p-4 text-sm">
+          <div className="my-6 rounded-lg overflow-auto dark:bg-[#1e1e1e] p-4 text-sm">
             <SyntaxHighlighter
               language={value.language || 'tsx'}
-              style={prismThemes.gruvboxLight}
-              customStyle={{
-                background: 'transparent',
-                fontSize: '0.9rem',
-                margin: 0,
-              }}
+              style={prismThemes.vscDarkPlus}
+              customStyle={{ borderRadius: '8px', padding: '1rem', marginBottom: '1.5rem' }}
               wrapLines={true}
               showLineNumbers={true}
             >

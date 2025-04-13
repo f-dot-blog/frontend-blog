@@ -37,7 +37,7 @@ export default async function BlogPostPage( props : Props) {
   if (!post) return <div className="text-center py-20 text-gray-500">文章不存在</div>
 
   return (
-    <article className="prose prose-lg mx-auto px-4 py-10">
+<article className="prose prose-lg prose-slate max-w-screen-md mx-auto px-4 py-10">
       {/* 封面圖 */}
       {post.mainImage && (
         <Image
@@ -50,11 +50,11 @@ export default async function BlogPostPage( props : Props) {
       )}
 
       {/* 標題 */}
-      <h1>{post.title}</h1>
+      <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
 
       {/* 發布日期 & 分類 */}
       <div className="text-sm text-gray-500 mb-6">
-        {formatDate(post.publishedAt)}
+      <p className="text-sm text-gray-500">{formatDate(post.publishedAt)}</p>
         {post.categories?.length > 0 && (
           <>
             {' ｜ '}

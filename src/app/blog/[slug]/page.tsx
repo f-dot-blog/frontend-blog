@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { PortableText } from '@portabletext/react'
 import { client } from '@/sanity/lib/client'
 import { urlForImage } from '@/sanity/lib/image'
 import PortableContent from '@/components/PortableContent'
@@ -37,29 +36,29 @@ export default async function BlogPostPage( props : Props) {
   if (!post) return <div className="text-center py-20 text-gray-500">文章不存在</div>
 
   return (
-<article className="prose prose-lg prose-slate max-w-screen-md mx-auto px-4 py-10">
-      {/* 封面圖 */}
+    <main className="max-w-4xl mx-auto px-4 py-12">
+      {/* Cover image */}
       {post.mainImage && (
         <Image
-          src={urlForImage(post.mainImage).width(800).url()}
+          src={urlForImage(post.mainImage).width(1200).url()}
           alt={post.title}
-          width={800}
-          height={450}
-          className="rounded-xl mb-6"
+          width={1200}
+          height={630}
+          className="rounded-xl mb-8 object-cover w-full"
         />
       )}
 
-      {/* 標題 */}
-      <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
+      {/* Title */}
+      <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
 
-      {/* 發布日期 & 分類 */}
-      <div className="text-sm text-gray-500 mb-6">
-      <p className="text-sm text-gray-500">{formatDate(post.publishedAt)}</p>
+      {/* Metadata */}
+      <div className="text-sm text-gray-500 mb-10 flex flex-wrap gap-x-2 gap-y-1 items-center">
+        <span>{formatDate(post.publishedAt)}</span>
         {post.categories?.length > 0 && (
           <>
-            {' ｜ '}
+            <span className="text-gray-300">|</span>
             {post.categories.map((cat: any) => (
-              <span key={cat.title} className="mr-2">
+              <span key={cat.title} className="text-gray-600">
                 #{cat.title}
               </span>
             ))}
@@ -67,8 +66,10 @@ export default async function BlogPostPage( props : Props) {
         )}
       </div>
 
-      {/* 內文 */}
-      <PortableContent value={post.content} />
-    </article>
+      {/* Content */}
+      <article className="prose prose-slate lg:prose-lg max-w-none">
+        <PortableContent value={post.content} />
+      </article>
+    </main>
   )
 }
